@@ -259,6 +259,18 @@ class Inotify
     return (mask & event_num) != 0
   end
 
+
+  # Rare routine to update path when move_self occurs
+  def move_self(path_from, path_to)
+    wd = @wds.key(path_from)
+    if wd
+      @wds[wd] = path_to
+    end
+    
+    puts @wds.inspect
+  end
+
+
   # Close the inotify file descriptor.
   def close
     inotify_close(@fd)
